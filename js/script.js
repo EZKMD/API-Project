@@ -1,5 +1,10 @@
 
-
+let currencySigns = {
+    "gbp":"£",
+    "usd":"$",
+    "aud":"$",
+    "vnd":"₫"
+}
 
 //Interactables:
 
@@ -20,8 +25,12 @@ dropdownSelection.addEventListener("change", () => {
 })
 
 calculateBtn.addEventListener("click", () => {
-    amountValue = amountField.value;
-    callAPI()   
+    amountValue = parseInt(amountField.value);
+     if (!isNaN(amountValue) && currencyToConvert != undefined){
+        callAPI(amountValue, currencyToConvert)
+    } else{
+        window.alert("Error");
+    } 
     
 })
 
@@ -35,7 +44,7 @@ currencyQueryURL = `https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@lates
 let conversionRate;
 let convertedAmount;
 
-function callAPI(){
+function callAPI(amountValue, currencyToConvert){
     $.ajax({
         url: currencyQueryURL,
         method: "GET"
@@ -44,10 +53,10 @@ function callAPI(){
 
             //Checking types of variables
             conversionRate = response.eur[currencyToConvert];
-            amountValue = parseInt(amountValue);
             convertedAmount = (amountValue/conversionRate).toFixed(2);
             console.log("Converted: "+convertedAmount);
-            outputField.textContent = convertedAmount;
+            outputField.textContent = `€${convertedAmount}`
+            
 
 
             
