@@ -8,16 +8,27 @@
 </head>
 <body>
 
-    <div id="dropdown-wrapper">
-        <label for="dropdown">Choose a currency to convert to euros:</label>
-        <select name="dropdown" id="dropdown">
-            <option value="invalid">--Select--</option>     
-            <option value="gbp">British Pounds</option>
-            <option value="usd">American Dollars</option>
-            <option value="aud">Australian Dollar</option>
-            <option value="vnd">Vietnamese Dong</option>
-        </select>
-    </div>
+    
+    <p>Choose currencies: </p>
+    <select name="dropdown" id="currencyToConvert">
+        <option value="invalid">--Select--</option>     
+        <option value="gbp">British Pounds</option>
+        <option value="usd">American Dollars</option>
+        <option value="aud">Australian Dollar</option>
+        <option value="vnd">Vietnamese Dong</option>
+    </select>
+    <select name="dropdown" id="currencyToConvertTo">
+        <option value="invalid">--Select--</option>     
+        <option value="gbp">British Pounds</option>
+        <option value="usd">American Dollars</option>
+        <option value="aud">Australian Dollar</option>
+        <option value="vnd">Vietnamese Dong</option>
+    </select>
+
+    
+
+
+
 
     <input id="amount-input" placeholder="Amount...">
     <button id="calculate">Calculate</button>
