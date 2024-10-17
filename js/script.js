@@ -67,7 +67,7 @@ function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
             console.log("Amount: "+amountValue)
             console.log("Conversion Rate: "+conversionRate)
             console.log("Converted: "+convertedAmount);
-            outputField.textContent = `€${convertedAmount}`
+            outputField.textContent = `${currencySigns[currencyToConvertTo]}${convertedAmount}`
             
 
 
