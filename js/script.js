@@ -32,7 +32,7 @@ currencyToConvertToSelection.addEventListener("change", () => {
 
 calculateBtn.addEventListener("click", () => {
     amountValue = parseInt(amountField.value);
-     if (!isNaN(amountValue) && currencyToConvert != undefined){
+     if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
         callAPI(amountValue, currencyToConvert, currencyToConvertTo)
     } else{
         window.alert("Error");
