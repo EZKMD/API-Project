@@ -3,7 +3,10 @@ let currencySigns = {
     "gbp":"£",
     "usd":"$",
     "aud":"$",
-    "vnd":"₫"
+    "vnd":"₫",
+    "eur":"€",
+    "inr":"₹",
+    "aed":"د.إ"
 }
 
 //Interactables:
@@ -14,9 +17,13 @@ const currencyToConvertToSelection = document.getElementById("currencyToConvertT
 
 const calculateBtn = document.getElementById("calculate");
 
+let currencySignField = document.getElementById("symbol-infront");
+
 const amountField = document.getElementById("amount-input");
 
 let outputField = document.getElementById("output");
+
+const swapBtn = document.getElementById("swap");
 
 let amountValue;
 let currencyToConvert;
@@ -24,10 +31,18 @@ let currencyToConvertTo;
 
 currencyToConvertSelection.addEventListener("change", () => {
     currencyToConvert = currencyToConvertSelection.value;
+    currencySignField.textContent = currencySigns[currencyToConvert];
 })
 
 currencyToConvertToSelection.addEventListener("change", () => {
     currencyToConvertTo = currencyToConvertToSelection.value;
+})
+
+swapBtn.addEventListener("click", () =>{
+    temp = currencyToConvertSelection.value
+    currencyToConvertSelection.value = currencyToConvertToSelection.value;
+    currencyToConvertToSelection.value = temp;
+    currencySignField.textContent = currencySigns[currencyToConvertSelection.value];
 })
 
 calculateBtn.addEventListener("click", () => {
