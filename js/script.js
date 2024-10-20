@@ -39,10 +39,13 @@ currencyToConvertToSelection.addEventListener("change", () => {
 })
 
 swapBtn.addEventListener("click", () =>{
-    temp = currencyToConvertSelection.value
+    temp = currencyToConvertSelection.value;
     currencyToConvertSelection.value = currencyToConvertToSelection.value;
     currencyToConvertToSelection.value = temp;
     currencySignField.textContent = currencySigns[currencyToConvertSelection.value];
+    currencyToConvert = currencyToConvertSelection.value;
+    currencyToConvertTo = currencyToConvertToSelection.value;
+
 })
 
 calculateBtn.addEventListener("click", () => {
