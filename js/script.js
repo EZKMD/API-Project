@@ -104,3 +104,6 @@ output.value = slider.value; // Display the default slider value
 slider.oninput = function() {
   output.value = this.value;
 }
+
+
+// New addition option
