@@ -1,4 +1,6 @@
 
+
+// Need to add the rest of the currency symbols
 let currencySigns = {
     "gbp":"£",
     "usd":"$",
