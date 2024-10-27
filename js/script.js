@@ -62,29 +62,26 @@ calculateBtn.addEventListener("click", () => {
 
 // Url form: https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@{date}/{apiVersion}/{endpoint}
 
-// Following is the latest exchange rates of the euro
-
-// It returns a json of the equivalent of each currency for 1 Euro
+// It returns a json of the equivalent of each currency for 1 of the url-specified currency
 
 let conversionRate;
 let convertedAmount;
 
 function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
-    console.log(currencyToConvert)
-    console.log(currencyToConvertTo)
+
     currencyQueryURL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"+currencyToConvertTo+".json";
+
     $.ajax({
         url: currencyQueryURL,
         method: "GET"
     }).then(
         (response) => {
 
-            //Checking types of variables
+            // Finding the relevant rate
             conversionRate = response[currencyToConvertTo][currencyToConvert];
+            // Calculating converted amount
             convertedAmount = (amountValue/conversionRate).toFixed(2);
-            console.log("Amount: "+amountValue)
-            console.log("Conversion Rate: "+conversionRate)
-            console.log("Converted: "+convertedAmount);
+            // Outputting the value in text content
             outputField.textContent = `${currencySigns[currencyToConvertTo]}${convertedAmount}`
             
 
@@ -104,6 +101,3 @@ output.value = slider.value; // Display the default slider value
 slider.oninput = function() {
   output.value = this.value;
 }
-
-
-// New addition option
