@@ -51,6 +51,8 @@ let outputField = document.getElementById("output");
 
 const swapBtn = document.getElementById("swap");
 
+
+
 let amountValue;
 let currencyToConvert;
 let currencyToConvertTo;
@@ -107,6 +109,18 @@ swapBtn.addEventListener("click", () =>{
     currencyToConvertTo = currencyToConvertToSelection.value;
     tryConvert();
 
+})
+
+amountField.addEventListener("input", () => {
+    amountValue = parseInt(amountField.value);
+    console.log(amountValue);
+    if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
+        callAPI(amountValue, currencyToConvert, currencyToConvertTo)
+    } else{
+        //pass window.alert("Error");
+        outputField.textContent = ""
+    } 
+    
 })
 
 
