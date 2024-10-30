@@ -1,8 +1,6 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
     padding: 1vh;
-    /*margin-left: auto;
-    margin-right: auto;*/
     margin: auto;
     text-align: center;
     color: #fff;  
@@ -27,13 +25,11 @@ body{
 }
 
 #exchange-container{
-    /*height:auto;*/
-    /*border-width: 10px;
-    border-style: solid;
-    border-color: #fff;
-    border-radius: 10px;*/
+    
     margin-top: 75px
 }
+
+
 
 #swap-range-container{
     display:inline-flex;
@@ -45,4 +41,5 @@ body{
     margin-top:20px
 }
 
-/*body { padding: 50px; }*/
+
+
