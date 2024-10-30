@@ -63,7 +63,7 @@ let field2Changed = false;
 tryConvert = function() {
     if (field1Changed && field2Changed) {
         
-        amountValue = parseInt(amountField.value);
+        amountValue = parseFloat(amountField.value);
         if (!isNaN(amountValue) && currencyToConvert != "invalid" && currencyToConvertTo != "invalid"){
             callAPI(amountValue, currencyToConvert, currencyToConvertTo)
         } else{
@@ -112,7 +112,7 @@ swapBtn.addEventListener("click", () =>{
 })
 
 amountField.addEventListener("input", () => {
-    amountValue = parseInt(amountField.value);
+    amountValue = parseFloat(amountField.value);
     console.log(amountValue);
     if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
         callAPI(amountValue, currencyToConvert, currencyToConvertTo)
@@ -126,7 +126,7 @@ amountField.addEventListener("input", () => {
 
 
 calculateBtn.addEventListener("click", () => {
-    amountValue = parseInt(amountField.value);
+    amountValue = parseFloat(amountField.value);
      if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
         callAPI(amountValue, currencyToConvert, currencyToConvertTo)
     } else{
@@ -137,7 +137,7 @@ calculateBtn.addEventListener("click", () => {
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Enter"){
-        amountValue = parseInt(amountField.value);
+        amountValue = parseFloat(amountField.value);
         if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
             callAPI(amountValue, currencyToConvert, currencyToConvertTo)
         } else{

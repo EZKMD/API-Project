@@ -8,8 +8,18 @@
     
 }
 
+select{
+    border-radius: 10px;
+}
+
 input, select, option{
     color:black
+}
+
+#amount-input{
+    border-radius: 10px;
+    outline:none;
+    border-width: 0;
 }
 
 
