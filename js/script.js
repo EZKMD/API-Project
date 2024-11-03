@@ -5,7 +5,8 @@ let currencySigns = {
 
     'all': 'Lek', 
     'afn': '؋', 
-    'ars': '$', 'awg': 'ƒ', 
+    'ars': '$', 
+    'awg': 'ƒ', 
     'aud': '$', 
     'azn': '₼', 
     'bsd': '$', 
@@ -64,6 +65,7 @@ tryConvert = function() {
     if (field1Changed && field2Changed) {
         
         amountValue = parseFloat(amountField.value);
+
         if (!isNaN(amountValue) && currencyToConvert != "invalid" && currencyToConvertTo != "invalid"){
             callAPI(amountValue, currencyToConvert, currencyToConvertTo)
         } else{
@@ -75,11 +77,9 @@ tryConvert = function() {
     }
 }
 
-
 currencyToConvertSelection.addEventListener("change", () => {
     currencyToConvert = currencyToConvertSelection.value;
-    currencySignField.textContent = currencySigns[currencyToConvert];
-    console.log(currencyToConvert);
+    currencySignField.textContent = currencySigns[currencyToConvert]
     if (currencyToConvert !== "invalid"){
         field1Changed = true;
         tryConvert()
@@ -157,7 +157,7 @@ let convertedAmount;
 
 function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
 
-    currencyQueryURL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"+currencyToConvertTo+".json";
+    currencyQueryURL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"+currencyToConvert+".json";
 
     $.ajax({
         url: currencyQueryURL,
@@ -166,9 +166,9 @@ function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
         (response) => {
 
             // Finding the relevant rate
-            conversionRate = response[currencyToConvertTo][currencyToConvert];
+            conversionRate = response[currencyToConvert][currencyToConvertTo];
             // Calculating converted amount
-            convertedAmount = (amountValue/conversionRate).toFixed(2);
+            convertedAmount = (amountValue*conversionRate).toFixed(2);
             // Outputting the value in text content
             outputField.textContent = `${currencySigns[currencyToConvertTo]}${convertedAmount}`
             
@@ -286,7 +286,7 @@ let currencyKey = [
     {'name': 'South Africa Rand', 'code': 'zar', 'symbol': 'R'}, 
     {'name': 'Sri Lanka Rupee', 'code': 'lkr', 'symbol': '₨'}, 
     {'name': 'Sweden Krona', 'code': 'sek', 'symbol': 'kr'}, 
-    {'name': 'Switzerland Franc', 'code': 'chf', 'symbol': 'CHF'}, 
+    {'name': 'Switzerland Franc', 'code': 'chf', 'symbol': '₣'}, 
     {'name': 'Suriname Dollar', 'code': 'srd', 'symbol': '$'}, 
     {'name': 'Syria Pound', 'code': 'syp', 'symbol': '£'}, 
     {'name': 'Taiwan New Dollar', 'code': 'twd', 'symbol': 'NT$'}, 
