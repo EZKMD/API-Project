@@ -1,6 +1,7 @@
 
 
-// Need to add the rest of the currency symbols
+// Dictionary of all necessary currency codes to respective symbol
+
 let currencySigns = {
 
     'all': 'Lek', 
@@ -36,11 +37,10 @@ let currencySigns = {
 
 
 
-//Interactables:
-
+// Buttons, text areas and input fields:
 const currencyToConvertSelection = document.getElementById("currencyToConvert");
 
-const currencyToConvertToSelection = document.getElementById("currencyToConvertTo")
+const currencyToConvertToSelection = document.getElementById("currencyToConvertTo");
 
 const calculateBtn = document.getElementById("calculate");
 
@@ -53,21 +53,29 @@ let outputField = document.getElementById("output");
 const swapBtn = document.getElementById("swap");
 
 
-
+// Global variables:
 let amountValue;
 let currencyToConvert;
 let currencyToConvertTo;
 
+
+// Boolean that allows love conversion
 let field1Changed = false;
 let field2Changed = false;
 
+
+// Funciton that is called whenever a field has a valid value, tries to convert
 tryConvert = function() {
+
+    // Checks if the other field has also recieved a value
     if (field1Changed && field2Changed) {
         
+        // Takes input amount
         amountValue = parseFloat(amountField.value);
 
+        // Checks that the input number is an actual valid value
         if (!isNaN(amountValue) && currencyToConvert != "invalid" && currencyToConvertTo != "invalid"){
-            callAPI(amountValue, currencyToConvert, currencyToConvertTo)
+            callAPI(amountValue, currencyToConvert, currencyToConvertTo);
         } else{
             //pass
         } 
@@ -77,29 +85,39 @@ tryConvert = function() {
     }
 }
 
+// Listens for a change in the first currency field
 currencyToConvertSelection.addEventListener("change", () => {
+    // Takes value of the dropdown selection
     currencyToConvert = currencyToConvertSelection.value;
+    //Adds a symbol next to the amount input box
     currencySignField.textContent = currencySigns[currencyToConvert]
+    // Tries to convert if the field is valid
     if (currencyToConvert !== "invalid"){
         field1Changed = true;
         tryConvert()
     } else{
+        // Ensure that no output will occur when the program isnt ready
         outputField.textContent = "";
     }
 
 })
 
+
+// Same as above but for the second currency field 
 currencyToConvertToSelection.addEventListener("change", () => {
     currencyToConvertTo = currencyToConvertToSelection.value;
-    console.log(currencyToConvertTo)
+
     if (currencyToConvertTo !== "invalid"){
+
         field2Changed = true;
-        tryConvert()
+        tryConvert();
+
     }else{
         outputField.textContent = "";
     }
 })
 
+// Code for the swap button that changes the actual value of the dropdowns
 swapBtn.addEventListener("click", () =>{
     temp = currencyToConvertSelection.value;
     currencyToConvertSelection.value = currencyToConvertToSelection.value;
@@ -111,14 +129,14 @@ swapBtn.addEventListener("click", () =>{
 
 })
 
+// Listens for an amount to be entered and tries to do a live conversion is value is valid
 amountField.addEventListener("input", () => {
     amountValue = parseFloat(amountField.value);
-    console.log(amountValue);
     if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
-        callAPI(amountValue, currencyToConvert, currencyToConvertTo)
+        callAPI(amountValue, currencyToConvert, currencyToConvertTo);
     } else{
         //pass window.alert("Error");
-        outputField.textContent = ""
+        outputField.textContent = "";
     } 
     
 })
@@ -128,7 +146,7 @@ amountField.addEventListener("input", () => {
 calculateBtn.addEventListener("click", () => {
     amountValue = parseFloat(amountField.value);
      if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
-        callAPI(amountValue, currencyToConvert, currencyToConvertTo)
+        callAPI(amountValue, currencyToConvert, currencyToConvertTo);
     } else{
         window.alert("Error");
     } 
@@ -139,7 +157,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "Enter"){
         amountValue = parseFloat(amountField.value);
         if (!isNaN(amountValue) && currencyToConvert != undefined && currencyToConvertTo != undefined){
-            callAPI(amountValue, currencyToConvert, currencyToConvertTo)
+            callAPI(amountValue, currencyToConvert, currencyToConvertTo);
         } else{
             window.alert("Error");
         } 
@@ -152,13 +170,19 @@ document.addEventListener("keydown", (event) => {
 
 // It returns a json of the equivalent of each currency for 1 of the url-specified currency
 
+
+// Variables for API calling
 let conversionRate;
 let convertedAmount;
 
+
+// Actual calling of API
 function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
 
+    // URL for API query
     currencyQueryURL = "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"+currencyToConvert+".json";
 
+    // Using jQuery and an ajax call to get a response from the API
     $.ajax({
         url: currencyQueryURL,
         method: "GET"
@@ -170,7 +194,7 @@ function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
             // Calculating converted amount
             convertedAmount = (amountValue*conversionRate).toFixed(2);
             // Outputting the value in text content
-            outputField.textContent = `${currencySigns[currencyToConvertTo]}${convertedAmount}`
+            outputField.textContent = `${currencySigns[currencyToConvertTo]}${convertedAmount}`;
             
 
 
@@ -179,11 +203,12 @@ function callAPI(amountValue, currencyToConvert, currencyToConvertTo){
     )
 }
 
-// Range slider code
 
+// Range slider code
 let slider = document.getElementById("myRange");
 let output = document.getElementById("amount-input");
 output.value = slider.value; // Display the default slider value
+
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
@@ -191,6 +216,10 @@ slider.oninput = function() {
   tryConvert()
 }
 
+
+// Code for filling html selection fields:
+
+// Dictionary referred to for the selection field to have correct values
 let currencyKey = [
 
     {'name': '--Select--', 'code':'invalid', 'symbol':'invalid'},
@@ -306,6 +335,7 @@ let currencyKey = [
 
 ]
 
+// jQuery to append selection values to the dropdown element
 $(document).ready(function (){
     for (let i=0; i < currencyKey.length; i++){
         $("#currencyToConvert").append(`<option value=${currencyKey[i]["code"]}>${currencyKey[i]["name"]}</option>`); 
@@ -315,6 +345,8 @@ $(document).ready(function (){
 })
 
 // Below checks if dropdown values are actually in API:
+
+// Proof of a verification method for the retrieved codes and if the API would retreive them
 
 // let currencyCodes = ['all', 'afn', 'ars', 'awg', 'aud', 'azn', 'bsd', 'bbd', 'byn', 'bzd', 'bmd', 'bob', 'bam', 'bwp', 'bgn', 'brl', 'bnd', 'khr', 'cad', 'kyd', 'clp', 'cny', 'cop', 'crc', 'hrk', 'cup', 'czk', 'dkk', 'dop', 'xcd', 'egp', 'svc', 'eur', 'fkp', 'fjd', 'ghs', 'gip', 'gtq', 'ggp', 'gyd', 'hnl', 'hkd', 'huf', 'isk', 'inr', 'idr', 'irr', 'imp', 'ils', 'jmd', 'jpy', 'jep', 'kzt', 'kpw', 'krw', 'kgs', 'lak', 'lbp', 'lrd', 'mkd', 'myr', 'mur', 'mxn', 'mnt', 'mzn', 'nad', 'npr', 'ang', 'nzd', 'nio', 'ngn', 'nok', 'omr', 'pkr', 'pab', 'pyg', 'pen', 'php', 'pln', 'qar', 'ron', 'rub', 'shp', 'sar', 'rsd', 'scr', 'sgd', 'sbd', 'sos', 'zar', 'lkr', 'sek', 'chf', 'srd', 'syp', 'twd', 'thb', 'ttd', 'try', 'tvd', 'uah', 'gbp', 'usd', 'uyu', 'uzs', 'vef', 'vnd', 'yer', 'zwd']
 
